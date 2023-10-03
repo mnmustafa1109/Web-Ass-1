@@ -28,6 +28,15 @@ $(document).ready(function () {
       return $(this).text();
     }).get();
 
+    // Check if there are any selected filters
+    if (selectedFilters.length === 0) {
+      // Hide the job filters container when there are no filters
+      jobFiltersContainer.hide();
+    } else {
+      // Show the job filters container when there are filters
+      jobFiltersContainer.show();
+    }
+
     // Filter the job listings based on selected filters
     const filteredJobs = jobData.filter(job => {
       const jobSkills = [
