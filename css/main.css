@@ -1,16 +1,64 @@
 /* styles.css */
 
-/* Add styles for job listing cards */
-.job-card {
-  display: flex;
-  border: 1px solid #ccc;
-  padding: 16px;
-  margin-bottom: 16px;
+body {
+  background-color: hsl(180, 52%, 96%);
+  margin: 0; /* Remove default body margin */
+  overflow-x: hidden; /* Hide horizontal overflow */
 }
 
-.job-card .job-image {
-  flex: 1;
-  padding: 8px;
+/* Header styles for desktop */
+.header {
+  background-image: url('../img/bg-header-desktop.svg');
+  background-size: cover;
+  background-position: center top;
+  height: 150px; /* Adjust the height as needed */
+}
+
+/* Header styles for mobile */
+@media (max-width: 768px) {
+  .header {
+    background-image: url('../img/bg-header-mobile.svg');
+    height: 100px; /* Adjust the height as needed */
+  }
+}
+
+.job-card .filter-pill {
+  font-family: 'League Spartan', sans-serif; /* Use the specified font */
+  font-size: 15px;
+  color: hsl(180, 29%, 50%);
+  display: inline-block;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background-color: hsl(180, 31%, 95%);
+  margin-right: 5px;
+  margin-bottom: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s; /* Add transitions */
+}
+
+/* Style for filter pills on hover */
+.filter-pill:hover {
+  color: white;
+  background-color: hsl(180, 29%, 50%);
+}
+
+/* Style for filter pills on hover */
+.filter-pill:hover {
+  color: white;
+  background-color: hsl(180, 29%, 50%);
+}
+
+.job-card {
+  display: flex;
+  /* Remove border */
+  border: none;
+  background: white;
+  padding: 16px;
+  margin-bottom: 16px;
+  /* Change box shadow color */
+  box-shadow: 0px 5px 15px hsla(180, 33%, 62%, 0.45);
+  flex-wrap: wrap; /* Allow elements to wrap to the next line */
+
 }
 
 .job-card .job-image img {
@@ -18,20 +66,55 @@
   max-width: 80px;
 }
 
-.job-card .job-details {
-  flex: 3;
+.job-card .job-image {
+  /* Set column width to 2/12 */
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 8px;
+}
+
+.job-card .job-details {
+  /* Set column width to 4/12 */
+  flex: 5;
+  padding: 8px;
+  font-family: 'League Spartan', sans-serif;
+  margin-top: auto; /* Push items to the top */
+}
+
+.job-card .job-skills {
+  /* Set column width to 6/12 */
+  flex: 6;
+  padding: 8px;
+  display: flex;
+  flex-wrap: wrap; /* Allow elements to wrap to the next line */
+  justify-content: flex-end; /* Align items from the right */
+  margin-bottom: auto; /* Push items to the bottom */
+  margin-top: auto; /* Push items to the top */
 }
 
 .job-card .company-info {
   display: flex;
+  flex-wrap: wrap; /* Allow elements to wrap to the next line */
   align-items: center;
 }
 
+
+/* Change font size for company name and position */
 .job-card .company-info h2 {
-  font-size: 24px;
+  font-size: 20px; /* Change the font size for the company name */
   margin: 0;
   margin-right: 10px;
+  color: hsl(180, 29%, 50%);
+}
+
+.job-card .role {
+  font-size: 24px; /* Change the font size for the position */
+  font-weight: bold;
+  color: black;
+  transition: color 0.3s;
+  margin: 10px 0;
 }
 
 .job-card .company-info .new,
@@ -39,43 +122,78 @@
   font-size: 12px;
   font-weight: bold;
   padding: 4px 8px;
-  background-color: #5ca720;
+  border-radius: 16px; /* Make pill-shaped */
   color: white;
-  border-radius: 4px;
-  margin-right: 5px;
+  background-color: hsl(180, 29%, 50%); /* Use the specified primary color */
+  margin-right: 5px; /* Add spacing between labels */
+  margin-bottom: 3px; /* Add spacing between labels */
+  margin-top: 3px;
 }
 
-.job-card .role {
-  font-weight: bold;
+.job-card .company-info .featured {
+  background-color: black; /* Use the specified color for featured */
+}
+
+.job-card:hover .role {
+  color: hsl(180, 29%, 50%); /* Change text color on hover to primary color */
 }
 
 .job-card .job-meta {
-  font-style: italic;
-  color: #666;
+  color: hsl(180, 8%, 52%); /* Use the specified dark grayish cyan color */
+  font-size: 15px; /* Set font size for job meta */
   margin-top: 5px;
 }
 
-.job-card .job-skills {
-  flex: 1;
-  padding: 8px;
-  border-left: 1px solid #ccc;
+.job-card .tags {
+  font-size: 15px; /* Set font size for languages and tools */
+  color: black; /* Set text color for languages and tools */
+  display: inline-block; /* Display as inline elements */
+  padding: 2px 10px; /* Add padding to create square-shaped pills */
+  border-radius: 8px; /* Add corner radius */
+  background-color: hsl(180, 52%, 96%); /* Set background color */
+  margin-right: 5px; /* Add spacing between pills */
+}
+#job-listings {
+  margin: 0 64px; /* Add margin to the job listings container from both sides */
 }
 
-.job-card .languages,
-.job-card .tools {
-  color: #333;
-  font-size: 14px;
+p {
+  margin: 0;
 }
 
-.job-card .languages:before,
-.job-card .tools:before {
-  content: "• ";
-  color: #666;
-}
-
-/* Add responsive styles for smaller screens if needed */
+/* CSS for small screen sizes */
 @media (max-width: 768px) {
   .job-card {
-    flex-direction: column;
+    flex-direction: column; /* Stack job card content vertically */
+    padding-top: 16px; /* Add spacing above job details */
+    position: relative; /* Position the job card relatively */
+    margin-top: 64px; /* Add spacing between job cards */
+  }
+  .job-image-container {
+    width: 100%; /* Set the width to 100% of the card */
+    overflow: hidden; /* Hide overflowing content */
+    position: absolute; /* Position the image container absolutely */
+    top: 0; /* Align the image container to the top of the card */
+    left: 0; /* Align the image container to the left of the card */
+  }
+
+  .job-image {
+    width: 60px; /* Adjust the width of the image as needed */
+    height: auto; /* Maintain the aspect ratio */
+    position: absolute; /* Position the image absolutely */
+    top: 0; /* Align the image to the top */
+    left: 0; /* Align the image to the left */
+    transform: translate(-0%, -40%); /* Center the image within the container */
+  }
+
+
+  .job-card .job-details {
+    margin-top: 16px; /* Add spacing between job image and job details */
+  }
+
+  .job-card .job-skills {
+    border-top: 1px solid  hsl(180, 8%, 52%);
+    padding-top: 16px; /* Add spacing above job skills */
+    margin-top: 16px; /* Add spacing between job details and job skills */
   }
 }

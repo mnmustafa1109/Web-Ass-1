@@ -3,60 +3,37 @@
 import $ from 'jquery';
 import json from '../data/data.json';
 $(document).ready(function() {
-  const jobData = [
-    {
-      "id": 1,
-      "company": "Photosnap",
-      "logo": "photosnap.svg",
-      "new": true,
-      "featured": true,
-      "position": "Senior Frontend Developer",
-      "role": "Frontend",
-      "level": "Senior",
-      "postedAt": "1d ago",
-      "contract": "Full Time",
-      "location": "USA Only",
-      "languages": ["HTML", "CSS", "JavaScript"],
-      "tools": []
-    },
-    {
-      "id": 2,
-      "company": "Manage",
-      "logo": "manage.svg",
-      "new": true,
-      "featured": true,
-      "position": "Fullstack Developer",
-      "role": "Fullstack",
-      "level": "Midweight",
-      "postedAt": "1d ago",
-      "contract": "Part Time",
-      "location": "Remote",
-      "languages": ["Python"],
-      "tools": ["React"]
-    }];
+  const jobData =  json;
 
   // Function to create a job card HTML element
   function createJobCard(job) {
+    const languagesPill = job.languages.map(language => `<span class="filter-pill">${language}</span>`).join('');
+    const rolePill = `<span class="filter-pill">${job.role}</span>`;
+    const levelPill = `<span class="filter-pill">${job.level}</span>`;
+    const toolsPill = job.tools.map(tool => `<span class="filter-pill">${tool}</span>`).join('');
+
+
     return `
     <div class="job-card">
       <div class="job-image">
-        <img src="${job.logo}" alt="${job.company} Logo">
+    <img src="${job.logo}" alt="${job.company} Logo" class="job-image">
       </div>
       <div class="job-details">
         <div class="company-info">
-          <h2>${job.company}</h2>
+          <h2>${job.position}</h2> <!-- Swap position and company name -->
           ${job.new ? '<span class="new">New!</span>' : ''}
           ${job.featured ? '<span class="featured">Featured</span>' : ''}
         </div>
-        <p class="role">${job.position}</p>
+        <p class="role">${job.company}</p> <!-- Swap company name and position -->
         <div class="job-meta">
           <p>${job.postedAt} • ${job.contract} • ${job.location}</p>
-          <p class="level">${job.role} • ${job.level}</p>
         </div>
       </div>
       <div class="job-skills">
-        <p class="languages">Languages: ${job.languages.join(', ')}</p>
-        <p class="tools">Tools: ${job.tools.join(', ')}</p>
+        ${languagesPill}
+        ${rolePill}
+        ${levelPill}
+        ${toolsPill}
       </div>
     </div>
   `;
