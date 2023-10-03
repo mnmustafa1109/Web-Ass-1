@@ -6,8 +6,10 @@ import json from '../data/data.json';
 $(document).ready(function () {
   const jobData = json;
   const jobListingsContainer = $('#job-listings');
-  const jobFiltersContainer = $('#job-filters'); // Select the job filters container
+  const jobFiltersContainer = $('#job-filters-pills'); // Select the job filters container
+  const jobFilterPill = $('#job-filters'); // Select the job filters container
 
+  // Function to create a filter pill and add it to the job filters container
   // Function to create a filter pill and add it to the job filters container
   function addFilterPill(filterText) {
     const filterPillHTML = `<span class="filter-pill">${filterText}</span>`;
@@ -20,7 +22,21 @@ $(document).ready(function () {
     });
 
     filterJobs(); // Apply filtering when a new pill is added
+
+    // Move the "Clear" filter paragraph to the end
+    $('#clear-filter').appendTo(jobFilterPill);
+  //    and unhide it
+    $('#clear-filter').show();
   }
+
+  // Attach click event to the "Clear" filter paragraph to remove all filter pills
+  $('#clear-filter').click(function () {
+    jobFiltersContainer.find('.filter-pill').remove();
+    filterJobs(); // Reapply filtering after removing all pills
+    $(this).hide();
+  }
+  );
+
 
   // Function to filter jobs based on selected filter pills
   function filterJobs() {
@@ -31,10 +47,15 @@ $(document).ready(function () {
     // Check if there are any selected filters
     if (selectedFilters.length === 0) {
       // Hide the job filters container when there are no filters
+      jobFilterPill.hide();
       jobFiltersContainer.hide();
     } else {
       // Show the job filters container when there are filters
+      jobFilterPill.show();
       jobFiltersContainer.show();
+      // add flex to job listings
+      jobFilterPill.css('display', 'flex');
+      jobFiltersContainer.css('display', 'flex');
     }
 
     // Filter the job listings based on selected filters
