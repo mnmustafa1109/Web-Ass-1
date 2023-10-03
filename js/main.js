@@ -7,7 +7,7 @@ $(document).ready(function() {
     {
       "id": 1,
       "company": "Photosnap",
-      "logo": "./images/photosnap.svg",
+      "logo": "photosnap.svg",
       "new": true,
       "featured": true,
       "position": "Senior Frontend Developer",
@@ -22,7 +22,7 @@ $(document).ready(function() {
     {
       "id": 2,
       "company": "Manage",
-      "logo": "./images/manage.svg",
+      "logo": "manage.svg",
       "new": true,
       "featured": true,
       "position": "Fullstack Developer",
@@ -39,14 +39,25 @@ $(document).ready(function() {
   function createJobCard(job) {
     return `
     <div class="job-card">
-      <h2>${job.company}</h2>
-      ${job.new ? '<span>New!</span>' : ''}
-      ${job.featured ? '<span>Featured</span>' : ''}
-      <p class="role">${job.position}</p>
-      <p>${job.postedAt}</p>
-      <p>${job.contract}</p>
-      <p>${job.location}</p>
-      <p class="languages">${job.languages.join(', ')}</p>
+      <div class="job-image">
+        <img src="${job.logo}" alt="${job.company} Logo">
+      </div>
+      <div class="job-details">
+        <div class="company-info">
+          <h2>${job.company}</h2>
+          ${job.new ? '<span class="new">New!</span>' : ''}
+          ${job.featured ? '<span class="featured">Featured</span>' : ''}
+        </div>
+        <p class="role">${job.position}</p>
+        <div class="job-meta">
+          <p>${job.postedAt} • ${job.contract} • ${job.location}</p>
+          <p class="level">${job.role} • ${job.level}</p>
+        </div>
+      </div>
+      <div class="job-skills">
+        <p class="languages">Languages: ${job.languages.join(', ')}</p>
+        <p class="tools">Tools: ${job.tools.join(', ')}</p>
+      </div>
     </div>
   `;
   }
