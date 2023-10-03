@@ -2,8 +2,65 @@
 
 import $ from 'jquery';
 import json from '../data/data.json';
-$(document).ready(function() {
-  const jobData =  json;
+
+$(document).ready(function () {
+  const jobData = json;
+  const jobListingsContainer = $('#job-listings');
+  const jobFiltersContainer = $('#job-filters'); // Select the job filters container
+
+  // Function to create a filter pill and add it to the job filters container
+  function addFilterPill(filterText) {
+    const filterPillHTML = `<span class="filter-pill">${filterText}</span>`;
+    jobFiltersContainer.append(filterPillHTML);
+
+    // Add click event to remove the filter pill when clicked
+    jobFiltersContainer.find('.filter-pill').last().click(function () {
+      $(this).remove();
+      filterJobs(); // Reapply filtering after removing a pill
+    });
+
+    filterJobs(); // Apply filtering when a new pill is added
+  }
+
+  // Function to filter jobs based on selected filter pills
+  function filterJobs() {
+    const selectedFilters = jobFiltersContainer.find('.filter-pill').map(function () {
+      return $(this).text();
+    }).get();
+
+    // Filter the job listings based on selected filters
+    const filteredJobs = jobData.filter(job => {
+      const jobSkills = [
+        ...job.languages,
+        job.role,
+        job.level,
+        ...job.tools
+      ];
+      return selectedFilters.every(filter => jobSkills.includes(filter));
+    });
+
+    // Clear the job listings container and display the filtered jobs
+    jobListingsContainer.empty();
+    filteredJobs.forEach(job => {
+      const jobCardHTML = createJobCard(job);
+      jobListingsContainer.append(jobCardHTML);
+    });
+  }
+
+  // Attach click event to the job skills pills to add them as filter pills
+  jobListingsContainer.on('click', '.job-skills .filter-pill', function () {
+    const filterText = $(this).text();
+    if (!jobFiltersContainer.find('.filter-pill:contains("' + filterText + '")').length) {
+      addFilterPill(filterText);
+    }
+  });
+
+  // Initial display of job listings
+  jobData.forEach(function (job) {
+    const jobCardHTML = createJobCard(job);
+    jobListingsContainer.append(jobCardHTML);
+  });
+
 
   // Function to create a job card HTML element
   function createJobCard(job) {
@@ -39,10 +96,7 @@ $(document).ready(function() {
   `;
   }
 
-  // Fetch and display job listings
-  const jobListingsContainer = $('#job-listings');
-
-  jobData.forEach(function(job) {
+  jobData.forEach(function (job) {
     const jobCardHTML = createJobCard(job);
     jobListingsContainer.append(jobCardHTML);
   });

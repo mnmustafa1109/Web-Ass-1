@@ -12,7 +12,14 @@ body {
   background-size: cover;
   background-position: center top;
   height: 150px; /* Adjust the height as needed */
+  position: relative; /* Add relative positioning */
+  z-index: -1; /* Place the header behind the main content */
 }
+
+#main {
+  margin-top: -40px; /* Adjust the value as needed */
+}
+
 
 /* Header styles for mobile */
 @media (max-width: 768px) {
@@ -36,16 +43,42 @@ body {
   transition: background-color 0.3s, color 0.3s; /* Add transitions */
 }
 
+#job-filters .filter-pill {
+  font-family: 'League Spartan', sans-serif; /* Use the specified font */
+  font-size: 15px;
+  color: hsl(180, 29%, 50%);
+  display: inline-block;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background-color: hsl(180, 31%, 95%);
+  margin-right: 5px;
+  margin-bottom: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s; /* Add transitions */
+}
+
 /* Style for filter pills on hover */
-.filter-pill:hover {
+.job-card .filter-pill:hover {
   color: white;
   background-color: hsl(180, 29%, 50%);
 }
 
 /* Style for filter pills on hover */
-.filter-pill:hover {
+.job-card .filter-pill:hover {
   color: white;
   background-color: hsl(180, 29%, 50%);
+}
+
+/* Style for filter pills on hover */
+#job-filters .filter-pill:hover {
+  color: white;
+  background-color:  hsl(180, 14%, 20%);
+}
+
+/* Style for filter pills on hover */
+#job-filters .filter-pill:hover {
+  color: white;
+  background-color:  hsl(180, 14%, 20%);
 }
 
 .job-card {
@@ -58,6 +91,22 @@ body {
   /* Change box shadow color */
   box-shadow: 0px 5px 15px hsla(180, 33%, 62%, 0.45);
   flex-wrap: wrap; /* Allow elements to wrap to the next line */
+  border-radius: 4px;
+
+}
+
+#job-filters {
+  display: flex;
+  /* Remove border */
+  border: none;
+  background: white;
+  min-height: 38px;
+  padding: 16px;
+  margin:0 64px 16px 63px;
+  /* Change box shadow color */
+  box-shadow: 0px 5px 15px hsla(180, 33%, 62%, 0.45);
+  flex-wrap: wrap; /* Allow elements to wrap to the next line */
+  border-radius: 4px;
 
 }
 
@@ -81,6 +130,7 @@ body {
   padding: 8px;
   font-family: 'League Spartan', sans-serif;
   margin-top: auto; /* Push items to the top */
+  margin-bottom: auto; /* Push items to the bottom */
 }
 
 .job-card .job-skills {
@@ -114,7 +164,8 @@ body {
   font-weight: bold;
   color: black;
   transition: color 0.3s;
-  margin: 10px 0;
+  margin-top: 5px;
+  margin-bottom: 10px;
 }
 
 .job-card .company-info .new,
@@ -131,7 +182,7 @@ body {
 }
 
 .job-card .company-info .featured {
-  background-color: black; /* Use the specified color for featured */
+  background-color: hsl(180, 14%, 20%); /* Use the specified color for featured */
 }
 
 .job-card:hover .role {
