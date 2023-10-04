@@ -28,6 +28,9 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           publish_dir: ./dist  # Change to the directory where your Parcel build output is
+        env:
+          PERSONAL_ACCESS_TOKEN: ${{ secrets.GH_PAGES_TOKEN }}
+
 
       - name: Set up Node.js for serving
         uses: actions/setup-node@v2
