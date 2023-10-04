@@ -16,7 +16,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: 20  # Change this to your Node.js version
+          node-version: 14  # Use a valid Node.js version (e.g., 14, 16, or LTS)
 
       - name: Install dependencies
         run: npm install
@@ -32,7 +32,7 @@ jobs:
       - name: Set up Node.js for serving
         uses: actions/setup-node@v2
         with:
-          node-version: 20
+          node-version: 14  # Use the same Node.js version as before
 
       - name: Start HTTP server
         run: |
@@ -46,4 +46,3 @@ jobs:
 
       - name: Test deployed site
         run: curl -I http://localhost:${{ env.PORT }}
-
