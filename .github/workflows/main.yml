@@ -1,0 +1,51 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - master  # Change this to your main branch name
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14  # Use a valid Node.js version (e.g., 14, 16, or LTS)
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build with Parcel
+        run: npm run build  # Replace with your Parcel build script, e.g., "parcel build index.html"
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          publish_dir: ./dist  # Change to the directory where your Parcel build output is
+        env:
+          PERSONAL_ACCESS_TOKEN: ${{ secrets.GH_PAGES_TOKEN }}
+
+
+      - name: Set up Node.js for serving
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14  # Use the same Node.js version as before
+
+      - name: Start HTTP server
+        run: |
+          npm install -g http-server
+          http-server ./dist -p ${{ env.PORT }} &
+        env:
+          PORT: 8080  # You can choose any available port you like
+
+      - name: Wait for server to start
+        run: sleep 3  # Adjust the sleep duration if needed
+
+      - name: Test deployed site
+        run: curl -I http://localhost:${{ env.PORT }}
