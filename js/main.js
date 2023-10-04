@@ -5,14 +5,19 @@ import json from '../data/data.json';
 
 $(document).ready(function () {
   const jobData = json;
+  const jobFiltersParent = $('#job-filters'); // Select the job filters container
   const jobListingsContainer = $('#job-listings');
   const jobFiltersContainer = $('#job-filters-pills'); // Select the job filters container
-  const jobFilterPill = $('#job-filters'); // Select the job filters container
+  const clearFilter = $('#clear-filter'); // Select the clear filter paragraph
 
   // Function to create a filter pill and add it to the job filters container
-  // Function to create a filter pill and add it to the job filters container
   function addFilterPill(filterText) {
-    const filterPillHTML = `<span class="filter-pill">${filterText}</span>`;
+    const filterPillHTML = `
+      <div class="filter-pill">
+        <span class="filter-text">${filterText}</span>
+        <img src="icon-remove.svg" class="cross-icon" alt="Cross Icon">
+      </div>
+    `;
     jobFiltersContainer.append(filterPillHTML);
 
     // Add click event to remove the filter pill when clicked
@@ -21,41 +26,35 @@ $(document).ready(function () {
       filterJobs(); // Reapply filtering after removing a pill
     });
 
-    filterJobs(); // Apply filtering when a new pill is added
+    jobFiltersParent.show();
 
-    // Move the "Clear" filter paragraph to the end
-    $('#clear-filter').appendTo(jobFilterPill);
-  //    and unhide it
-    $('#clear-filter').show();
+    filterJobs(); // Apply filtering when a new pill is added
   }
 
   // Attach click event to the "Clear" filter paragraph to remove all filter pills
-  $('#clear-filter').click(function () {
-    jobFiltersContainer.find('.filter-pill').remove();
+  clearFilter.click(function () {
+    jobFiltersContainer.empty();
     filterJobs(); // Reapply filtering after removing all pills
-    $(this).hide();
-  }
-  );
-
+  });
 
   // Function to filter jobs based on selected filter pills
   function filterJobs() {
-    const selectedFilters = jobFiltersContainer.find('.filter-pill').map(function () {
+    const selectedFilters = jobFiltersContainer.find('.filter-pill .filter-text').map(function () {
       return $(this).text();
     }).get();
 
     // Check if there are any selected filters
     if (selectedFilters.length === 0) {
       // Hide the job filters container when there are no filters
-      jobFilterPill.hide();
       jobFiltersContainer.hide();
+      jobFiltersParent.hide();
     } else {
       // Show the job filters container when there are filters
-      jobFilterPill.show();
       jobFiltersContainer.show();
       // add flex to job listings
-      jobFilterPill.css('display', 'flex');
       jobFiltersContainer.css('display', 'flex');
+      jobFiltersParent.show();
+      jobFiltersParent.css('display', 'flex');
     }
 
     // Filter the job listings based on selected filters
@@ -80,7 +79,7 @@ $(document).ready(function () {
   // Attach click event to the job skills pills to add them as filter pills
   jobListingsContainer.on('click', '.job-skills .filter-pill', function () {
     const filterText = $(this).text();
-    if (!jobFiltersContainer.find('.filter-pill:contains("' + filterText + '")').length) {
+    if (!jobFiltersContainer.find('.filter-pill .filter-text:contains("' + filterText + '")').length) {
       addFilterPill(filterText);
     }
   });

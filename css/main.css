@@ -43,42 +43,49 @@ body {
   transition: background-color 0.3s, color 0.3s; /* Add transitions */
 }
 
-#job-filters .filter-pill {
-  font-family: 'League Spartan', sans-serif; /* Use the specified font */
+#job-filters-pills .filter-pill {
+  font-family: 'League Spartan', sans-serif;
   font-size: 15px;
   color: hsl(180, 29%, 50%);
-  display: inline-block;
-  padding: 10px 12px;
+  display: flex; /* Change to flex */
+  flex-direction: row;
+  justify-content: space-between; /* Align items to the start and end */
+  padding: 0; /* Swap padding values for left and right */
   border-radius: 8px;
   background-color: hsl(180, 31%, 95%);
   margin-right: 5px;
-  margin-bottom: 2px;
+  margin-bottom: 9px;
   cursor: pointer;
-  transition: background-color 0.3s, color 0.3s; /* Add transitions */
+  transition: background-color 0.3s, color 0.3s;
 }
+
+.filter-pill .cross-icon {
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+  background-color: hsl(180, 29%, 50%);
+  padding: 6px;
+  align-self: stretch;
+  /*  8 px on the right sides and 0px on the left*/
+  border-radius: 0px 8px 8px 0px;
+}
+
+.filter-pill:hover .cross-icon {
+  background-color: hsl(180, 14%, 20%);
+}
+
+.filter-pill .filter-text {
+  font-weight: bold;
+  margin: 9px 9px 0px 9px;
+  padding: 0;
+  height: fit-content;
+}
+
 
 /* Style for filter pills on hover */
 .job-card .filter-pill:hover {
   color: white;
   background-color: hsl(180, 29%, 50%);
-}
-
-/* Style for filter pills on hover */
-.job-card .filter-pill:hover {
-  color: white;
-  background-color: hsl(180, 29%, 50%);
-}
-
-/* Style for filter pills on hover */
-#job-filters .filter-pill:hover {
-  color: white;
-  background-color:  hsl(180, 14%, 20%);
-}
-
-/* Style for filter pills on hover */
-#job-filters .filter-pill:hover {
-  color: white;
-  background-color:  hsl(180, 14%, 20%);
 }
 
 .job-card {
