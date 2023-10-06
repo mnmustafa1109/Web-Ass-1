@@ -13,8 +13,9 @@
     "build-img": "parcel build img/* --no-cache"
   },
   "devDependencies": {
-    "parcel-bundler": "^1.12.4"
+    "parcel": "^2.9.3"
   },
+  "trustedDependencies": ["parcel"],
   "dependencies": {
     "express": "^4.18.2",
     "jquery": "^3.7.1"
