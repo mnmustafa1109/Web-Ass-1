@@ -7,8 +7,8 @@
   "author": "",
   "scripts": {
     "build": "parcel build index.html && parcel build img/*",
-    "dev": "bun run build-img && parcel index.html --open",
-    "start": "bun server.js",
+    "dev": "npm run build-img && parcel index.html --open",
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build-img": "parcel build img/* --no-cache"
   },
