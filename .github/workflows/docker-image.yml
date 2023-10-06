@@ -21,5 +21,5 @@ jobs:
 
     - name: Build and Push Docker image
       run: |
-        docker build . --file Dockerfile --tag ghcr.io/${{ github.repository_owner }}/web-ass-1:$(date +%s)
+        docker build . --file Dockerfile --tag web-ass-1:$(date +%s)
         docker push ghcr.io/${{ github.repository_owner }}/web-ass-1:$(date +%s)
