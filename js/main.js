@@ -225,13 +225,13 @@ $(document).ready(function () {
       <label for="logo">Company Logo:</label>
       <input type="file" id="logo" name="logo" accept="image/*">
 
-
+      <div class="checkbox-container">
       <label for="new">New Job:</label>
       <input type="checkbox" id="new" name="new">
 
       <label for="featured">Featured Job:</label>
       <input type="checkbox" id="featured" name="featured">
-
+      </div>
       <label for="role">Role:</label>
       <input type="text" id="role" name="role" required>
 
@@ -255,8 +255,6 @@ $(document).ready(function () {
 
       <button type="submit">Add Job</button>
 
-      <!-- Add delete button -->
-      <button type="button" id="delete-job">Delete</button>
     </form>
   `;
 
@@ -364,9 +362,5 @@ $(document).ready(function () {
   $('#add-job-button').click(function () {
     openJobFormPopup();
   });
-
-
-
-
 
 });
