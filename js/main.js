@@ -86,13 +86,13 @@ $(document).ready(function () {
 
   // Initial display of job listings
   jobData.forEach(function (job) {
-    const jobCardHTML = createJobCard(job);
+    const jobCardHTML = createJobCard(job, jobData.indexOf(job));
     jobListingsContainer.append(jobCardHTML);
   });
 
 
   // Function to create a job card HTML element
-  function createJobCard(job) {
+  function createJobCard(job,index) {
     const languagesPill = job.languages.map(language => `<span class="filter-pill">${language}</span>`).join('');
     const rolePill = `<span class="filter-pill">${job.role}</span>`;
     const levelPill = `<span class="filter-pill">${job.level}</span>`;
@@ -100,7 +100,7 @@ $(document).ready(function () {
 
 
     return `
-    <div class="job-card">
+    <div class="job-card" data-job-id="${index}" data-role="${job.role}" data-level="${job.level}" data-languages="${job.languages.join(', ')}" data-tools="${job.tools.join(', ')}">
       <div class="job-image">
     <img src="${job.logo}" alt="${job.company} Logo" class="job-image">
       </div>
@@ -129,4 +129,63 @@ $(document).ready(function () {
     const jobCardHTML = createJobCard(job);
     jobListingsContainer.append(jobCardHTML);
   });
+
+  // Add this code inside your $(document).ready(function () { ... }) block
+
+// Function to open the job popup
+  function openJobPopup(job) {
+    const jobPopup = $('#job-popup');
+    const popupContent = $('.popup-content');
+
+    // Populate the popup content with job details
+    const languagesPill = job.languages.map(language => `<span class="filter-pill">${language}</span>`).join('');
+    const rolePill = `<span class="filter-pill">${job.role}</span>`;
+    const levelPill = `<span class="filter-pill">${job.level}</span>`;
+    const toolsPill = job.tools.map(tool => `<span class="filter-pill">${tool}</span>`).join('');
+
+    const jobDetailsHTML = `
+<span id="close-popup" class="popup-close-btn">×</span>
+    <div class="job-details-popup">
+      <div class="company-info-popup">
+        <h2>${job.position}</h2>
+        ${job.new ? '<span class="new">New!</span>' : ''}
+        ${job.featured ? '<span class="featured">Featured</span>' : ''}
+      </div>
+      <p class="role-popup">${job.company}</p>
+      <div class="job-meta-popup">
+        <p>${job.postedAt} • ${job.contract} • ${job.location}</p>
+      </div>
+       <div class="job-skills-popup">
+      ${languagesPill}
+      ${rolePill}
+      ${levelPill}
+      ${toolsPill}
+    </div>
+    </div>
+
+  `;
+
+    popupContent.html(jobDetailsHTML);
+
+    // Show the popup
+    jobPopup.css('display', 'flex');
+
+    const closePopupBtn = $('#close-popup');
+
+
+    // Close the popup when the close button is clicked
+    closePopupBtn.click(function () {
+      jobPopup.hide();
+    });
+  }
+
+  // Attach click event to job cards to open the popup
+  jobListingsContainer.on('click', '.job-card', function () {
+    const jobId = $(this).data('job-id'); // Get the job ID from the clicked card's data
+    const selectedJob = jobData[jobId]; // Find the job using the job ID
+    if (selectedJob) {
+      openJobPopup(selectedJob);
+    }
+  });
+
 });
