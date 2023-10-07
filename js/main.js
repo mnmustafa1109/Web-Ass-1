@@ -122,7 +122,7 @@ $(document).ready(function () {
         ${levelPill}
         ${toolsPill}
       </div>
-        <div class="delete-button" data-job-id="${index}">Delete</div> <!-- Add the delete button -->
+        <div class="delete-button" data-job-id="${index}">×</div> <!-- Add the delete button -->
 
     </div>
   `;
