@@ -1,15 +1,13 @@
-// script.js
 import $ from 'jquery';
 import json from '../data/data.json';
 
 $(document).ready(function () {
   const jobData = json;
-  const jobFiltersParent = $('#job-filters'); // Select the job filters container
+  const jobFiltersParent = $('#job-filters');
   const jobListingsContainer = $('#job-listings');
-  const jobFiltersContainer = $('#job-filters-pills'); // Select the job filters container
-  const clearFilter = $('#clear-filter'); // Select the clear filter paragraph
+  const jobFiltersContainer = $('#job-filters-pills');
+  const clearFilter = $('#clear-filter');
 
-  // Function to create a filter pill and add it to the job filters container
   function addFilterPill(filterText) {
     const filterPillHTML = `
       <div class="filter-pill">
@@ -19,44 +17,39 @@ $(document).ready(function () {
     `;
     jobFiltersContainer.append(filterPillHTML);
 
-    // Add click event to remove the filter pill when clicked
     jobFiltersContainer.find('.filter-pill').last().click(function () {
       $(this).remove();
-      filterJobs(); // Reapply filtering after removing a pill
+      filterJobs();
     });
 
     jobFiltersParent.show();
 
-    filterJobs(); // Apply filtering when a new pill is added
+    filterJobs();
   }
 
-  // Attach click event to the "Clear" filter paragraph to remove all filter pills
   clearFilter.click(function () {
     jobFiltersContainer.empty();
-    filterJobs(); // Reapply filtering after removing all pills
+    filterJobs();
   });
 
-  // Function to filter jobs based on selected filter pills
   function filterJobs() {
     const selectedFilters = jobFiltersContainer.find('.filter-pill .filter-text').map(function () {
       return $(this).text();
     }).get();
 
-    // Check if there are any selected filters
     if (selectedFilters.length === 0) {
-      // Hide the job filters container when there are no filters
+
       jobFiltersContainer.hide();
       jobFiltersParent.hide();
     } else {
-      // Show the job filters container when there are filters
+
       jobFiltersContainer.show();
-      // add flex to job listings
+
       jobFiltersContainer.css('display', 'flex');
       jobFiltersParent.show();
       jobFiltersParent.css('display', 'flex');
     }
 
-    // Filter the job listings based on selected filters
     const filteredJobs = jobData.filter(job => {
       const jobSkills = [
         ...job.languages,
@@ -67,7 +60,6 @@ $(document).ready(function () {
       return selectedFilters.every(filter => jobSkills.includes(filter));
     });
 
-    // Clear the job listings container and display the filtered jobs
     jobListingsContainer.empty();
     filteredJobs.forEach(job => {
       const jobCardHTML = createJobCard(job, jobData.indexOf(job));
@@ -75,16 +67,14 @@ $(document).ready(function () {
     });
   }
 
-  // Attach click event to the job skills pills to add them as filter pills
   jobListingsContainer.on('click', '.job-skills .filter-pill', function () {
-    event.stopPropagation(); // Prevent the click event from propagating to the job card
+    event.stopPropagation();
     const filterText = $(this).text();
     if (!jobFiltersContainer.find('.filter-pill .filter-text:contains("' + filterText + '")').length) {
       addFilterPill(filterText);
     }
   });
 
-  // Initial display of job listings
   jobData.forEach(function (job) {
     const jobCardHTML = createJobCard(job, jobData.indexOf(job));
     jobListingsContainer.append(jobCardHTML);
@@ -127,12 +117,10 @@ $(document).ready(function () {
   `;
   }
 
-  // Function to open the job popup
   function openJobPopup(job) {
     const jobPopup = $('#job-popup');
     const popupContent = $('.popup-content');
 
-    // Populate the popup content with job details
     const languagesPill = job.languages.map(language => `<span class="filter-pill">${language}</span>`).join('');
     const rolePill = `<span class="filter-pill">${job.role}</span>`;
     const levelPill = `<span class="filter-pill">${job.level}</span>`;
@@ -161,27 +149,23 @@ $(document).ready(function () {
         ${levelPill}
         ${toolsPill}
       </div>
-      <!-- Add the delete button -->
     </div>
   `;
 
     popupContent.html(jobDetailsHTML);
 
-    // Show the popup
     jobPopup.css('display', 'flex');
 
     const closePopupBtn = $('#close-popup');
 
-    // Close the popup when the close button is clicked
     closePopupBtn.click(function () {
       jobPopup.hide();
     });
   }
 
-  // Attach click event to job card company names to open the popup
   jobListingsContainer.on('click', '.job-card .job-details', function () {
-    const jobId = $(this).closest('.job-card').data('job-id'); // Get the job ID from the closest job card
-    const selectedJob = jobData[jobId]; // Find the job using the job ID
+    const jobId = $(this).closest('.job-card').data('job-id');
+    const selectedJob = jobData[jobId];
     if (selectedJob) {
       openJobPopup(selectedJob);
     }
@@ -191,12 +175,10 @@ $(document).ready(function () {
   function deleteJob(event, jobId) {
     event.stopPropagation();
 
-    // Find the job card with the matching data-job-id attribute and remove it
     const jobCard = $(`.job-card[data-job-id="${jobId}"]`);
     jobCard.remove();
     console.log(jobId);
 
-    // Remove the job from the jobData array
     const indexToDelete = jobData.findIndex(job => jobData.indexOf(job) === jobId);
     if (indexToDelete !== -1) {
       jobData.splice(indexToDelete, 1);
@@ -204,8 +186,8 @@ $(document).ready(function () {
   }
 
   jobListingsContainer.on('click', '.delete-button', function (event) {
-    const jobId = $(this).closest('.job-card').data('job-id'); // Get the job ID from data attribute
-    deleteJob(event, jobId); // Pass the event to the deleteJob function with the job's ID
+    const jobId = $(this).closest('.job-card').data('job-id');
+    deleteJob(event, jobId);
   });
 
   function openJobFormPopup() {
@@ -260,26 +242,22 @@ $(document).ready(function () {
 
     popupContent.html(jobDetailsHTML);
 
-    // Show the popup
     jobPopup.css('display', 'flex');
 
     const closePopupBtn = $('#close-form-popup');
 
-    // Close the popup when the close button is clicked
     closePopupBtn.click(function () {
       jobPopup.hide();
     });
 
-    // function to submit the form
     const addJobForm = document.getElementById('add-job-form');
     addJobForm.addEventListener('submit', async function (event) {
       event.preventDefault();
       console.log('Form submitted');
 
-      // Get user input from the form
       const position = $('#position').val();
       const company = $('#company').val();
-      const logoFile = $('#logo')[0].files[0]; // Get the selected logo file
+      const logoFile = $('#logo')[0].files[0];
       const isNew = $('#new').prop('checked');
       const isFeatured = $('#featured').prop('checked');
       const role = $('#role').val();
@@ -291,11 +269,10 @@ $(document).ready(function () {
       const tools = $('#tools').val().split(',').map(tool => tool.trim());
 
       const formData = new FormData();
-      formData.append('logo', logoFile); // Append the logo file to the form data
+      formData.append('logo', logoFile);
 
-      // Send the form data to the server
       try {
-        // Send the form data to the server for file upload
+
         const response = await fetch('/upload-logo', {
           method: 'POST',
           body: formData,
@@ -303,13 +280,10 @@ $(document).ready(function () {
 
         if (response.status === 200) {
           console.log('Logo uploaded successfully');
-          const logoFileName = await response.text(); // Get the logo file name from the server response
+          const logoFileName = await response.text();
 
-          // Close the Add Job Pop-up
           $('#add-job-popup').hide();
 
-          // Add the new job to the job listings
-          // Create a new job object
           const newJob = {
             company: company,
             logo: `uploads/${logoFileName}`,
@@ -325,17 +299,13 @@ $(document).ready(function () {
             tools: tools,
           };
 
-          // Add the new job to your existing list (jobData)
           jobData.push(newJob);
 
-          // Close the Add Job Pop-up
           $('#add-job-popup').hide();
 
-          // Add the new job to the job listings
           const jobCardHTML = createJobCard(newJob, jobData.indexOf(newJob));
           jobListingsContainer.append(jobCardHTML);
 
-          // Clear form fields
           $('#position').val('');
           $('#company').val('');
           $('#logo').val('');
@@ -353,7 +323,6 @@ $(document).ready(function () {
       } catch (error) {
         console.error('Error uploading logo:', error);
       }
-
 
       return false;
     },false);

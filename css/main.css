@@ -1,35 +1,31 @@
-/* styles.css */
-
 body {
   background-color: hsl(180, 52%, 96%);
-  margin: 0; /* Remove default body margin */
-  overflow-x: hidden; /* Hide horizontal overflow */
+  margin: 0;
+  overflow-x: hidden;
 }
 
-/* Header styles for desktop */
 .header {
   background-image: url('../img/bg-header-desktop.svg');
   background-size: cover;
   background-position: center top;
   background-color: hsl(180, 31%, 44%);
-  height: 170px; /* Adjust the height as needed */
-  z-index: -1; /* Place the header behind the main content */
+  height: 170px;
+  z-index: -1;
 }
 
 #main {
-  margin-top: -40px; /* Adjust the value as needed */
+  margin-top: -40px;
 }
 
-/* Header styles for mobile */
 @media (max-width: 768px) {
   .header {
     background-image: url('../img/bg-header-mobile.svg');
-    height: 140px; /* Adjust the height as needed */
+    height: 140px;
   }
 }
 
 .filter-pill {
-  font-family: 'League Spartan', sans-serif; /* Use the specified font */
+  font-family: 'League Spartan', sans-serif;
   font-size: 15px;
   color: hsl(180, 29%, 50%);
   display: inline-block;
@@ -39,17 +35,17 @@ body {
   margin-right: 5px;
   margin-bottom: 5px;
   cursor: pointer;
-  transition: background-color 0.3s, color 0.3s; /* Add transitions */
+  transition: background-color 0.3s, color 0.3s;
 }
 
 #job-filters-pills .filter-pill {
   font-family: 'League Spartan', sans-serif;
   font-size: 15px;
   color: hsl(180, 29%, 50%);
-  display: flex; /* Change to flex */
+  display: flex;
   flex-direction: row;
-  justify-content: space-between; /* Align items to the start and end */
-  padding: 0; /* Swap padding values for left and right */
+  justify-content: space-between;
+  padding: 0;
   border-radius: 8px;
   background-color: hsl(180, 31%, 95%);
   margin-right: 5px;
@@ -65,7 +61,6 @@ body {
   background-color: hsl(180, 29%, 50%);
   padding: 6px;
   align-self: stretch;
-  /*  8 px on the right sides and 0px on the left*/
   border-radius: 0 8px 8px 0;
 }
 
@@ -80,8 +75,6 @@ body {
   height: fit-content;
 }
 
-
-/* Style for filter pills on hover */
 .filter-pill:hover {
   color: white;
   background-color: hsl(180, 29%, 50%);
@@ -89,59 +82,55 @@ body {
 
 .job-card {
   display: flex;
-  /* Remove border */
   background: white;
   padding: 16px;
   margin-bottom: 16px;
-  /* Change box shadow color */
   box-shadow: 0 5px 15px hsla(180, 33%, 62%, 0.45);
-  flex-wrap: wrap; /* Allow elements to wrap to the next line */
+  flex-wrap: wrap;
   border-radius: 4px;
-  border-left: 5px solid white; /* Set the initial border color to white */
-  transition: border-color 0.3s, box-shadow 0.3s; /* Add transitions for border-color and box-shadow */
+  border-left: 5px solid white;
+  transition: border-color 0.3s, box-shadow 0.3s;
 
 }
 
 .job-card:hover{
   box-shadow: 0 5px 15px hsla(180, 29%, 34%, 0.56);
-  /*  add darkish cyan border on left*/
+
   border-left: 5px solid hsl(180, 29%, 50%);
 }
 
 #job-filters {
   display: flex;
-  /* Remove border */
   border: none;
   background: white;
   min-height: 38px;
   padding: 16px;
   margin:0 64px 16px 64px;
-  /* Change box shadow color */
   box-shadow: 0 5px 15px hsla(180, 33%, 62%, 0.45);
-  flex-wrap: wrap; /* Allow elements to wrap to the next line */
+  flex-wrap: wrap;
   border-radius: 4px;
   justify-content: space-between;
 }
 
 #job-filters p {
-  font-family: 'League Spartan', sans-serif; /* Use the specified font */
+  font-family: 'League Spartan', sans-serif;
   font-size: 18px;
   color: hsl(180, 29%, 50%);
-  display: inline; /* Make it an inline element */
-  margin: 0; /* Remove default margin */
+  display: inline;
+  margin: 0;
   cursor: pointer;
-  transition: background-color 0.3s, color 0.3s; /* Add transitions */
+  transition: background-color 0.3s, color 0.3s;
   align-self: center;
   font-weight: bold;
 }
 
 #job-filters p:hover {
   color: hsl(180, 29%, 50%);
-  text-decoration: underline; /* Add an underline on hover */
+  text-decoration: underline;
 }
 
 #job-filters {
-  display: none; /* Hide the job filters container initially */
+  display: none;
 }
 
 .job-image img {
@@ -150,7 +139,6 @@ body {
 }
 
 .job-image {
-  /* Set column width to 2/12 */
   flex: 1;
   display: flex;
   align-items: center;
@@ -159,42 +147,38 @@ body {
 }
 
 .job-details {
-  /* Set column width to 4/12 */
   flex: 5;
   padding: 8px;
   font-family: 'League Spartan', sans-serif;
-  margin-top: auto; /* Push items to the top */
-  margin-bottom: auto; /* Push items to the bottom */
-  cursor: pointer; /* Change cursor to pointer */
+  margin-top: auto;
+  margin-bottom: auto;
+  cursor: pointer;
 }
 
 .job-skills {
-  /* Set column width to 6/12 */
   flex: 6;
   display: flex;
-  flex-wrap: wrap; /* Allow elements to wrap to the next line */
-  justify-content: flex-end; /* Align items from the right */
-  margin-bottom: auto; /* Push items to the bottom */
-  margin-top: auto; /* Push items to the top */
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  margin-bottom: auto;
+  margin-top: auto;
   padding: 30px 8px 8px;
 }
 
 .company-info {
   display: flex;
-  flex-wrap: wrap; /* Allow elements to wrap to the next line */
+  flex-wrap: wrap;
   align-items: center;
 }
 
-
-/* Change font size for company name and position */
 .company-info h2 {
-  font-size: 20px; /* Change the font size for the company name */
+  font-size: 20px;
   margin: 0 10px 0 0;
   color: hsl(180, 29%, 50%);
 }
 
 .role {
-  font-size: 24px; /* Change the font size for the position */
+  font-size: 24px;
   font-weight: bold;
   color: black;
   transition: color 0.3s;
@@ -207,87 +191,85 @@ body {
   font-size: 12px;
   font-weight: bold;
   padding: 4px 8px;
-  border-radius: 16px; /* Make pill-shaped */
+  border-radius: 16px;
   color: white;
-  background-color: hsl(180, 29%, 50%); /* Use the specified primary color */
-  margin-right: 5px; /* Add spacing between labels */
-  margin-bottom: 3px; /* Add spacing between labels */
+  background-color: hsl(180, 29%, 50%);
+  margin-right: 5px;
+  margin-bottom: 3px;
   margin-top: 3px;
 }
 
 .company-info .featured {
-  background-color: hsl(180, 14%, 20%); /* Use the specified color for featured */
+  background-color: hsl(180, 14%, 20%);
 }
 
 .job-card:hover .role {
-  color: hsl(180, 29%, 50%); /* Change text color on hover to primary color */
+  color: hsl(180, 29%, 50%);
 }
 
 .job-meta {
-  color: hsl(180, 8%, 52%); /* Use the specified dark grayish cyan color */
-  font-size: 15px; /* Set font size for job meta */
+  color: hsl(180, 8%, 52%);
+  font-size: 15px;
   margin-top: 5px;
 }
 
 .tags {
-  font-size: 15px; /* Set font size for languages and tools */
-  color: black; /* Set text color for languages and tools */
-  display: inline-block; /* Display as inline elements */
-  padding: 2px 10px; /* Add padding to create square-shaped pills */
-  border-radius: 8px; /* Add corner radius */
-  background-color: hsl(180, 52%, 96%); /* Set background color */
-  margin-right: 5px; /* Add spacing between pills */
+  font-size: 15px;
+  color: black;
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 8px;
+  background-color: hsl(180, 52%, 96%);
+  margin-right: 5px;
 }
 #job-listings {
-  margin: 0 64px; /* Add margin to the job listings container from both sides */
+  margin: 0 64px;
 }
 
 p {
   margin: 0;
 }
 
-/* CSS for small screen sizes */
 @media (max-width: 768px) {
   .job-card {
-    flex-direction: column; /* Stack job card content vertically */
-    padding-top: 16px; /* Add spacing above job details */
-    position: relative; /* Position the job card relatively */
-    margin-top: 64px; /* Add spacing between job cards */
+    flex-direction: column;
+    padding-top: 16px;
+    position: relative;
+    margin-top: 64px;
   }
 
   .job-card .job-details{
-    padding-top: 16px; /* Add spacing above job details */
-    margin-top: 16px; /* Add spacing between job details and job skills */
+    padding-top: 16px;
+    margin-top: 16px;
   }
   .job-image-container {
-    width: 100%; /* Set the width to 100% of the card */
-    overflow: hidden; /* Hide overflowing content */
-    position: absolute; /* Position the image container absolutely */
-    top: 0; /* Align the image container to the top of the card */
-    left: 0; /* Align the image container to the left of the card */
+    width: 100%;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
   }
 
   .job-card .job-image {
-    width: 60px; /* Adjust the width of the image as needed */
-    height: auto; /* Maintain the aspect ratio */
-    position: absolute; /* Position the image absolutely */
-    top: 0; /* Align the image to the top */
-    left: 0; /* Align the image to the left */
-    transform: translate(-0%, -40%); /* Center the image within the container */
+    width: 60px;
+    height: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(-0%, -40%);
   }
-
 
   .job-card .job-skills {
     border-top: 1px solid  hsl(180, 8%, 52%);
-    padding-top: 16px; /* Add spacing above job skills */
-    margin-top: 16px; /* Add spacing between job details and job skills */
+    padding-top: 16px;
+    margin-top: 16px;
   }
   #job-listings {
-    margin: 84px 32px; /* Add margin to the job listings container from both sides */
+    margin: 84px 32px;
   }
 
   #job-filters {
-    margin: 0 32px; /* Add margin to the job listings container from both sides */
+    margin: 0 32px;
   }
 
 }
@@ -302,15 +284,14 @@ p {
 
 .popup-content .job-skills {
   border-top: 1px solid  hsl(180, 8%, 52%);
-  padding-top: 16px; /* Add spacing above job skills */
-  margin-top: 16px; /* Add spacing between job details and job skills */
+  padding-top: 16px;
+  margin-top: 16px;
 }
 
 .job-card-popup .job-skills .filter-pill {
   cursor: default;
 }
 
-/* Style for the delete button */
 .delete-button {
   position: absolute;
   width: 26px;
@@ -318,8 +299,8 @@ p {
   top: 10px;
   right: 10px;
   padding-top: 2px;
-  background-color: #ff4b4b; /* Red background color */
-  color: #fff; /* White text color */
+  background-color: #ff4b4b;
+  color: #fff;
   border-radius: 5px;
   display: flex;
   justify-content: center;
@@ -329,17 +310,15 @@ p {
   font-family: 'League Spartan', sans-serif;
   align-self: self-start;
   font-size: larger;
-  box-shadow: 0 3px 9px rgba(229, 111, 111, 0.2); /* Box shadow for normal state */
-  transition: background-color 0.3s, box-shadow 0.3s; /* Transition effect for hover state */
+  box-shadow: 0 3px 9px rgba(229, 111, 111, 0.2);
+  transition: background-color 0.3s, box-shadow 0.3s;
 }
 
-/* Hover effect for the delete button */
 .delete-button:hover {
-  background-color: #ff3333; /* Darker red background color on hover */
-  box-shadow: 0 5px 15px rgba(218, 36, 36, 0.3); /* Increase box shadow on hover */
+  background-color: #ff3333;
+  box-shadow: 0 5px 15px rgba(218, 36, 36, 0.3);
 }
 
-/* CSS for the job popup */
 .popup {
   display: none;
   position: fixed;
@@ -361,9 +340,9 @@ p {
   max-width: 90%;
   max-height: 80%;
   overflow-y: auto;
-  position: relative; /* Keep this as relative */
+  position: relative;
 }
-/* Plus Sign Button */
+
 .add-button {
   position: fixed;
   bottom: 20px;
@@ -375,11 +354,11 @@ p {
   font-size: 40px;
   border-radius: 50%;
   text-align: center;
-  display: flex; /* Use flexbox */
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
-  z-index: 1001; /* Ensure it's above other content */
+  z-index: 1001;
 }
 
 .form-popup-content{
@@ -390,11 +369,10 @@ p {
   max-width: 70%;
   max-height: 60%;
   overflow-y: auto;
-  position: relative; /* Keep this as relative */
+  position: relative;
   font-family: 'League Spartan', sans-serif;
 }
 
-/* CSS for the job form popup */
 .form-popup-content form {
   display: flex;
   flex-direction: column;
@@ -467,5 +445,3 @@ p {
 .form-popup-content button[type="button"]:hover {
   background-color: hsl(180, 50%, 40%);
 }
-
-
