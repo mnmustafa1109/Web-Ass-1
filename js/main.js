@@ -78,6 +78,7 @@ $(document).ready(function () {
 
   // Attach click event to the job skills pills to add them as filter pills
   jobListingsContainer.on('click', '.job-skills .filter-pill', function () {
+    event.stopPropagation(); // Prevent the click event from propagating to the job card
     const filterText = $(this).text();
     if (!jobFiltersContainer.find('.filter-pill .filter-text:contains("' + filterText + '")').length) {
       addFilterPill(filterText);
@@ -121,14 +122,11 @@ $(document).ready(function () {
         ${levelPill}
         ${toolsPill}
       </div>
+        <div class="delete-button" data-job-id="${index}">Delete</div> <!-- Add the delete button -->
+
     </div>
   `;
   }
-
-  jobData.forEach(function (job) {
-    const jobCardHTML = createJobCard(job);
-    jobListingsContainer.append(jobCardHTML);
-  });
 
   // Add this code inside your $(document).ready(function () { ... }) block
 
@@ -179,13 +177,36 @@ $(document).ready(function () {
     });
   }
 
-  // Attach click event to job cards to open the popup
-  jobListingsContainer.on('click', '.job-card', function () {
-    const jobId = $(this).data('job-id'); // Get the job ID from the clicked card's data
+  // Attach click event to job card company names to open the popup
+  jobListingsContainer.on('click', '.job-card .job-details', function (event) {
+    const jobId = $(this).closest('.job-card').data('job-id'); // Get the job ID from the closest job card
     const selectedJob = jobData[jobId]; // Find the job using the job ID
     if (selectedJob) {
       openJobPopup(selectedJob);
     }
+
   });
+
+
+  function deleteJob(event, jobId) {
+    event.stopPropagation(); // Prevent the click event from propagating to the job card
+
+    // Remove the job card from the UI
+    const jobCard = $(`.job-card[data-job-id="${jobId}"]`);
+    jobCard.remove();
+
+    // Remove the job from the jobData array
+    jobData.splice(jobId, 1);
+  }
+
+
+// Attach click event to delete buttons
+  jobListingsContainer.on('click', '.delete-button', function (event) {
+    event.stopPropagation(); // Prevent the click event from propagating to the job card
+    const jobId = $(this).data('job-id'); // Get the job ID from the clicked button's data
+    deleteJob(event, jobId); // Pass the event to the deleteJob function
+  });
+
+
 
 });

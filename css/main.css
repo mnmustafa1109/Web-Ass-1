@@ -167,6 +167,7 @@ body {
   font-family: 'League Spartan', sans-serif;
   margin-top: auto; /* Push items to the top */
   margin-bottom: auto; /* Push items to the bottom */
+  cursor: pointer; /* Change cursor to pointer */
 }
 
 .job-card .job-skills {
@@ -272,10 +273,6 @@ p {
     transform: translate(-0%, -40%); /* Center the image within the container */
   }
 
-
-  .job-card .job-details {
-    margin-top: 16px; /* Add spacing between job image and job details */
-  }
 
   .job-card .job-skills {
     border-top: 1px solid  hsl(180, 8%, 52%);
