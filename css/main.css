@@ -173,12 +173,12 @@ body {
 .job-skills {
   /* Set column width to 6/12 */
   flex: 6;
-  padding: 8px;
   display: flex;
   flex-wrap: wrap; /* Allow elements to wrap to the next line */
   justify-content: flex-end; /* Align items from the right */
   margin-bottom: auto; /* Push items to the bottom */
   margin-top: auto; /* Push items to the top */
+  padding: 30px 8px 8px;
 }
 
 .company-info {
