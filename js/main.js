@@ -92,45 +92,47 @@ $(document).ready(function () {
   });
 
 
-  // Function to create a job card HTML element
-  function createJobCard(job,index) {
-    const languagesPill = job.languages.map(language => `<span class="filter-pill">${language}</span>`).join('');
+  function createJobCard(job, index) {
+    const languagesPill = job.languages.map((language) => `<span class="filter-pill">${language}</span>`).join('');
     const rolePill = `<span class="filter-pill">${job.role}</span>`;
     const levelPill = `<span class="filter-pill">${job.level}</span>`;
-    const toolsPill = job.tools.map(tool => `<span class="filter-pill">${tool}</span>`).join('');
-
+    const toolsPill = job.tools.map((tool) => `<span class="filter-pill">${tool}</span>`).join('');
 
     return `
-    <div class="job-card" data-job-id="${index}" data-role="${job.role}" data-level="${job.level}" data-languages="${job.languages.join(', ')}" data-tools="${job.tools.join(', ')}">
-      <div class="job-image">
-    <img src="${job.logo}" alt="${job.company} Logo" class="job-image">
-      </div>
-      <div class="job-details">
-        <div class="company-info">
-          <h2>${job.position}</h2> <!-- Swap position and company name -->
-          ${job.new ? '<span class="new">New!</span>' : ''}
-          ${job.featured ? '<span class="featured">Featured</span>' : ''}
+    <div class="job-card-container" >
+      <div class="job-card" data-job-id="${index}" data-role="${job.role}" data-level="${job.level}" data-languages="${job.languages.join(
+      ', '
+    )}" data-tools="${job.tools.join(', ')}">
+        <div class="delete-button" data-job-id="${index}">×</div>
+        <div class="job-image">
+          <img src="${job.logo}" alt="${job.company} Logo" class="job-image">
         </div>
-        <p class="role">${job.company}</p> <!-- Swap company name and position -->
-        <div class="job-meta">
-          <p>${job.postedAt} • ${job.contract} • ${job.location}</p>
+        <div class="job-details">
+          <div class="company-info">
+            <h2>${job.position}</h2>
+            ${job.new ? '<span class="new">New!</span>' : ''}
+            ${job.featured ? '<span class="featured">Featured</span>' : ''}
+          </div>
+          <p class="role">${job.company}</p>
+          <div class="job-meta">
+            <p>${job.postedAt} • ${job.contract} • ${job.location}</p>
+          </div>
+        </div>
+        <div class="job-skills">
+          ${languagesPill}
+          ${rolePill}
+          ${levelPill}
+          ${toolsPill}
         </div>
       </div>
-      <div class="job-skills">
-        ${languagesPill}
-        ${rolePill}
-        ${levelPill}
-        ${toolsPill}
-      </div>
-        <div class="delete-button" data-job-id="${index}">×</div> <!-- Add the delete button -->
-
     </div>
   `;
   }
 
+
   // Add this code inside your $(document).ready(function () { ... }) block
 
-// Function to open the job popup
+  // Function to open the job popup
   function openJobPopup(job) {
     const jobPopup = $('#job-popup');
     const popupContent = $('.popup-content');
@@ -142,25 +144,30 @@ $(document).ready(function () {
     const toolsPill = job.tools.map(tool => `<span class="filter-pill">${tool}</span>`).join('');
 
     const jobDetailsHTML = `
-<span id="close-popup" class="popup-close-btn">×</span>
-    <div class="job-details-popup">
-      <div class="company-info-popup">
-        <h2>${job.position}</h2>
-        ${job.new ? '<span class="new">New!</span>' : ''}
-        ${job.featured ? '<span class="featured">Featured</span>' : ''}
+          <div id="close-popup" class="delete-button" data-job-id="${jobData.indexOf(job)}">×</div>
+    <div class="job-card-popup" data-job-id="${jobData.indexOf(job)}" data-role="${job.role}" data-level="${job.level}" data-languages="${job.languages.join(', ')}" data-tools="${job.tools.join(', ')}">
+      <div class="job-image">
+        <img src="${job.logo}" alt="${job.company} Logo" class="job-image">
       </div>
-      <p class="role-popup">${job.company}</p>
-      <div class="job-meta-popup">
-        <p>${job.postedAt} • ${job.contract} • ${job.location}</p>
+      <div class="job-details">
+        <div class="company-info">
+          <h2>${job.position}</h2>
+          ${job.new ? '<span class="new">New!</span>' : ''}
+          ${job.featured ? '<span class="featured">Featured</span>' : ''}
+        </div>
+        <p class="role">${job.company}</p>
+        <div class="job-meta">
+          <p>${job.postedAt} • ${job.contract} • ${job.location}</p>
+        </div>
       </div>
-       <div class="job-skills-popup">
-      ${languagesPill}
-      ${rolePill}
-      ${levelPill}
-      ${toolsPill}
+      <div class="job-skills">
+        ${languagesPill}
+        ${rolePill}
+        ${levelPill}
+        ${toolsPill}
+      </div>
+      <!-- Add the delete button -->
     </div>
-    </div>
-
   `;
 
     popupContent.html(jobDetailsHTML);
@@ -169,7 +176,6 @@ $(document).ready(function () {
     jobPopup.css('display', 'flex');
 
     const closePopupBtn = $('#close-popup');
-
 
     // Close the popup when the close button is clicked
     closePopupBtn.click(function () {
@@ -200,12 +206,12 @@ $(document).ready(function () {
   }
 
 
-// Attach click event to delete buttons
+  // Attach click event to delete buttons
   jobListingsContainer.on('click', '.delete-button', function (event) {
-    event.stopPropagation(); // Prevent the click event from propagating to the job card
-    const jobId = $(this).data('job-id'); // Get the job ID from the clicked button's data
+    const jobId = $(this).data('job-id'); // Get the job ID from the data attribute
     deleteJob(event, jobId); // Pass the event to the deleteJob function
   });
+
 
 
 

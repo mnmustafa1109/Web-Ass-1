@@ -29,7 +29,7 @@ body {
   }
 }
 
-.job-card .filter-pill {
+.filter-pill {
   font-family: 'League Spartan', sans-serif; /* Use the specified font */
   font-size: 15px;
   color: hsl(180, 29%, 50%);
@@ -83,7 +83,7 @@ body {
 
 
 /* Style for filter pills on hover */
-.job-card .filter-pill:hover {
+.filter-pill:hover {
   color: white;
   background-color: hsl(180, 29%, 50%);
 }
@@ -146,12 +146,12 @@ body {
 }
 
 
-.job-card .job-image img {
+.job-image img {
   border-radius: 50%;
   max-width: 80px;
 }
 
-.job-card .job-image {
+.job-image {
   /* Set column width to 2/12 */
   flex: 1;
   display: flex;
@@ -160,7 +160,7 @@ body {
   padding: 8px;
 }
 
-.job-card .job-details {
+.job-details {
   /* Set column width to 4/12 */
   flex: 5;
   padding: 8px;
@@ -170,7 +170,7 @@ body {
   cursor: pointer; /* Change cursor to pointer */
 }
 
-.job-card .job-skills {
+.job-skills {
   /* Set column width to 6/12 */
   flex: 6;
   padding: 8px;
@@ -181,7 +181,7 @@ body {
   margin-top: auto; /* Push items to the top */
 }
 
-.job-card .company-info {
+.company-info {
   display: flex;
   flex-wrap: wrap; /* Allow elements to wrap to the next line */
   align-items: center;
@@ -189,13 +189,13 @@ body {
 
 
 /* Change font size for company name and position */
-.job-card .company-info h2 {
+.company-info h2 {
   font-size: 20px; /* Change the font size for the company name */
   margin: 0 10px 0 0;
   color: hsl(180, 29%, 50%);
 }
 
-.job-card .role {
+.role {
   font-size: 24px; /* Change the font size for the position */
   font-weight: bold;
   color: black;
@@ -204,8 +204,8 @@ body {
   margin-bottom: 10px;
 }
 
-.job-card .company-info .new,
-.job-card .company-info .featured {
+.company-info .new,
+.company-info .featured {
   font-size: 12px;
   font-weight: bold;
   padding: 4px 8px;
@@ -217,7 +217,7 @@ body {
   margin-top: 3px;
 }
 
-.job-card .company-info .featured {
+.company-info .featured {
   background-color: hsl(180, 14%, 20%); /* Use the specified color for featured */
 }
 
@@ -225,13 +225,13 @@ body {
   color: hsl(180, 29%, 50%); /* Change text color on hover to primary color */
 }
 
-.job-card .job-meta {
+.job-meta {
   color: hsl(180, 8%, 52%); /* Use the specified dark grayish cyan color */
   font-size: 15px; /* Set font size for job meta */
   margin-top: 5px;
 }
 
-.job-card .tags {
+.tags {
   font-size: 15px; /* Set font size for languages and tools */
   color: black; /* Set text color for languages and tools */
   display: inline-block; /* Display as inline elements */
@@ -256,6 +256,11 @@ p {
     position: relative; /* Position the job card relatively */
     margin-top: 64px; /* Add spacing between job cards */
   }
+
+  .job-card .job-details{
+    padding-top: 16px; /* Add spacing above job details */
+    margin-top: 16px; /* Add spacing between job details and job skills */
+  }
   .job-image-container {
     width: 100%; /* Set the width to 100% of the card */
     overflow: hidden; /* Hide overflowing content */
@@ -264,7 +269,7 @@ p {
     left: 0; /* Align the image container to the left of the card */
   }
 
-  .job-image {
+  .job-card .job-image {
     width: 60px; /* Adjust the width of the image as needed */
     height: auto; /* Maintain the aspect ratio */
     position: absolute; /* Position the image absolutely */
@@ -314,35 +319,31 @@ p {
   position: relative; /* Keep this as relative */
 }
 
-.popup-content .popup-close-btn {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 24px;
-  cursor: pointer;
-  color: hsl(180, 29%, 50%);
-  z-index: 1;
+.job-card-container {
+  position: relative;
 }
 
-
-/* Add more styles as needed for the job popup content */
-
-.popup-content h2 {
-  font-size: 24px;
-  margin-bottom: 10px;
-  color: hsl(180, 29%, 50%);
+.popup-content .job-details{
+  cursor: default;
 }
 
-.popup-content p {
-  font-size: 16px;
-  color: hsl(180, 8%, 29%);
-  margin-bottom: 15px;
+.popup-content .job-skills {
+  border-top: 1px solid  hsl(180, 8%, 52%);
+  padding-top: 16px; /* Add spacing above job skills */
+  margin-top: 16px; /* Add spacing between job details and job skills */
+}
+
+.job-card-popup .job-skills .filter-pill {
+  cursor: default;
 }
 
 /* Style for the delete button */
 .delete-button {
+  position: absolute;
   width: 26px;
   height: 26px;
+  top: 10px;
+  right: 10px;
   padding-top: 2px;
   background-color: #ff4b4b; /* Red background color */
   color: #fff; /* White text color */
@@ -353,6 +354,7 @@ p {
   cursor: pointer;
   font-weight: bolder;
   font-family: 'League Spartan', sans-serif;
+  align-self: self-start;
   font-size: larger;
   box-shadow: 0 3px 9px rgba(229, 111, 111, 0.2); /* Box shadow for normal state */
   transition: background-color 0.3s, box-shadow 0.3s; /* Transition effect for hover state */
