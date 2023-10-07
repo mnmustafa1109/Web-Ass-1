@@ -67,7 +67,7 @@ body {
   padding: 6px;
   align-self: stretch;
   /*  8 px on the right sides and 0px on the left*/
-  border-radius: 0px 8px 8px 0px;
+  border-radius: 0 8px 8px 0;
 }
 
 .filter-pill:hover .cross-icon {
@@ -76,7 +76,7 @@ body {
 
 .filter-pill .filter-text {
   font-weight: bold;
-  margin: 9px 9px 0px 9px;
+  margin: 9px 9px 0 9px;
   padding: 0;
   height: fit-content;
 }
@@ -96,9 +96,10 @@ body {
   padding: 16px;
   margin-bottom: 16px;
   /* Change box shadow color */
-  box-shadow: 0px 5px 15px hsla(180, 33%, 62%, 0.45);
+  box-shadow: 0 5px 15px hsla(180, 33%, 62%, 0.45);
   flex-wrap: wrap; /* Allow elements to wrap to the next line */
   border-radius: 4px;
+  transition: border-color 0.3s, box-shadow 0.3s; /* Add transitions for border-color and box-shadow */
 
 }
 
@@ -111,7 +112,7 @@ body {
   padding: 16px;
   margin:0 64px 16px 64px;
   /* Change box shadow color */
-  box-shadow: 0px 5px 15px hsla(180, 33%, 62%, 0.45);
+  box-shadow: 0 5px 15px hsla(180, 33%, 62%, 0.45);
   flex-wrap: wrap; /* Allow elements to wrap to the next line */
   border-radius: 4px;
   justify-content: space-between;
@@ -183,8 +184,7 @@ body {
 /* Change font size for company name and position */
 .job-card .company-info h2 {
   font-size: 20px; /* Change the font size for the company name */
-  margin: 0;
-  margin-right: 10px;
+  margin: 0 10px 0 0;
   color: hsl(180, 29%, 50%);
 }
 
@@ -219,7 +219,7 @@ body {
 }
 
 .job-card:hover{
-  box-shadow: 0px 5px 15px hsla(180, 29%, 50%, 0.45);
+  box-shadow: 0 5px 15px hsla(180, 29%, 34%, 0.56);
 /*  add darkish cyan border on left*/
   border-left: 5px solid hsl(180, 29%, 50%);
 }
@@ -283,7 +283,7 @@ p {
     margin-top: 16px; /* Add spacing between job details and job skills */
   }
   #job-listings {
-    margin: 0 32px; /* Add margin to the job listings container from both sides */
+    margin: 84px 32px; /* Add margin to the job listings container from both sides */
   }
 
   #job-filters {
