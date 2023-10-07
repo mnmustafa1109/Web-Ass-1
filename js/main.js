@@ -1,5 +1,4 @@
 // script.js
-
 import $ from 'jquery';
 import json from '../data/data.json';
 
@@ -90,7 +89,6 @@ $(document).ready(function () {
     const jobCardHTML = createJobCard(job, jobData.indexOf(job));
     jobListingsContainer.append(jobCardHTML);
   });
-
 
   function createJobCard(job, index) {
     const languagesPill = job.languages.map((language) => `<span class="filter-pill">${language}</span>`).join('');
@@ -205,11 +203,170 @@ $(document).ready(function () {
     }
   }
 
-
-
   jobListingsContainer.on('click', '.delete-button', function (event) {
     const jobId = $(this).closest('.job-card').data('job-id'); // Get the job ID from data attribute
     deleteJob(event, jobId); // Pass the event to the deleteJob function with the job's ID
   });
+
+  function openJobFormPopup() {
+    const jobPopup = $('#add-job-popup');
+    const popupContent = $('.form-popup-content');
+
+    const jobDetailsHTML = `
+    <div id="close-form-popup" class="delete-button">×</div>
+    <h2>Add New Job</h2>
+    <form id="add-job-form">
+      <label for="position">Position:</label>
+      <input type="text" id="position" name="position" required>
+
+      <label for="company">Company:</label>
+      <input type="text" id="company" name="company" required>
+
+      <label for="logo">Company Logo:</label>
+      <input type="file" id="logo" name="logo" accept="image/*">
+
+
+      <label for="new">New Job:</label>
+      <input type="checkbox" id="new" name="new">
+
+      <label for="featured">Featured Job:</label>
+      <input type="checkbox" id="featured" name="featured">
+
+      <label for="role">Role:</label>
+      <input type="text" id="role" name="role" required>
+
+      <label for="level">Level:</label>
+      <input type="text" id="level" name="level" required>
+
+      <label for="postedAt">Posted At:</label>
+      <input type="text" id="postedAt" name="postedAt" required>
+
+      <label for="contract">Contract:</label>
+      <input type="text" id="contract" name="contract" required>
+
+      <label for="location">Location:</label>
+      <input type="text" id="location" name="location" required>
+
+      <label for="languages">Languages (comma-separated):</label>
+      <input type="text" id="languages" name="languages" required>
+
+      <label for="tools">Tools (comma-separated):</label>
+      <input type="text" id="tools" name="tools" required>
+
+      <button type="submit">Add Job</button>
+
+      <!-- Add delete button -->
+      <button type="button" id="delete-job">Delete</button>
+    </form>
+  `;
+
+    popupContent.html(jobDetailsHTML);
+
+    // Show the popup
+    jobPopup.css('display', 'flex');
+
+    const closePopupBtn = $('#close-form-popup');
+
+    // Close the popup when the close button is clicked
+    closePopupBtn.click(function () {
+      jobPopup.hide();
+    });
+
+    // function to submit the form
+    const addJobForm = document.getElementById('add-job-form');
+    addJobForm.addEventListener('submit', async function (event) {
+      event.preventDefault();
+      console.log('Form submitted');
+
+      // Get user input from the form
+      const position = $('#position').val();
+      const company = $('#company').val();
+      const logoFile = $('#logo')[0].files[0]; // Get the selected logo file
+      const isNew = $('#new').prop('checked');
+      const isFeatured = $('#featured').prop('checked');
+      const role = $('#role').val();
+      const level = $('#level').val();
+      const postedAt = $('#postedAt').val();
+      const contract = $('#contract').val();
+      const location = $('#location').val();
+      const languages = $('#languages').val().split(',').map(lang => lang.trim());
+      const tools = $('#tools').val().split(',').map(tool => tool.trim());
+
+      const formData = new FormData();
+      formData.append('logo', logoFile); // Append the logo file to the form data
+
+      // Send the form data to the server
+      try {
+        // Send the form data to the server for file upload
+        const response = await fetch('/upload-logo', {
+          method: 'POST',
+          body: formData,
+        });
+
+        if (response.status === 200) {
+          console.log('Logo uploaded successfully');
+          const logoFileName = await response.text(); // Get the logo file name from the server response
+
+          // Close the Add Job Pop-up
+          $('#add-job-popup').hide();
+
+          // Add the new job to the job listings
+          // Create a new job object
+          const newJob = {
+            company: company,
+            logo: `uploads/${logoFileName}`,
+            new: isNew,
+            featured: isFeatured,
+            position: position,
+            role: role,
+            level: level,
+            postedAt: postedAt,
+            contract: contract,
+            location: location,
+            languages: languages,
+            tools: tools,
+          };
+
+          // Add the new job to your existing list (jobData)
+          jobData.push(newJob);
+
+          // Close the Add Job Pop-up
+          $('#add-job-popup').hide();
+
+          // Add the new job to the job listings
+          const jobCardHTML = createJobCard(newJob, jobData.indexOf(newJob));
+          jobListingsContainer.append(jobCardHTML);
+
+          // Clear form fields
+          $('#position').val('');
+          $('#company').val('');
+          $('#logo').val('');
+          $('#new').prop('checked', false);
+          $('#featured').prop('checked', false);
+          $('#role').val('');
+          $('#level').val('');
+          $('#postedAt').val('');
+          $('#contract').val('');
+          $('#location').val('');
+          $('#languages').val('');
+          $('#tools').val('');        } else {
+          console.error('Logo upload failed');
+        }
+      } catch (error) {
+        console.error('Error uploading logo:', error);
+      }
+
+
+      return false;
+    },false);
+  }
+
+  $('#add-job-button').click(function () {
+    openJobFormPopup();
+  });
+
+
+
+
 
 });

@@ -20,7 +20,6 @@ body {
   margin-top: -40px; /* Adjust the value as needed */
 }
 
-
 /* Header styles for mobile */
 @media (max-width: 768px) {
   .header {
@@ -144,7 +143,6 @@ body {
 #job-filters {
   display: none; /* Hide the job filters container initially */
 }
-
 
 .job-image img {
   border-radius: 50%;
@@ -294,31 +292,6 @@ p {
 
 }
 
-/* CSS for the job popup */
-.popup {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.7);
-  z-index: 1000;
-  justify-content: center;
-  align-items: center;
-}
-
-.popup-content {
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-  max-width: 90%;
-  max-height: 80%;
-  overflow-y: auto;
-  position: relative; /* Keep this as relative */
-}
-
 .job-card-container {
   position: relative;
 }
@@ -364,4 +337,58 @@ p {
 .delete-button:hover {
   background-color: #ff3333; /* Darker red background color on hover */
   box-shadow: 0 5px 15px rgba(218, 36, 36, 0.3); /* Increase box shadow on hover */
+}
+
+/* CSS for the job popup */
+.popup {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-content {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  max-width: 90%;
+  max-height: 80%;
+  overflow-y: auto;
+  position: relative; /* Keep this as relative */
+}
+/* Plus Sign Button */
+.add-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  background-color: hsl(180, 29%, 50%);
+  color: white;
+  font-size: 40px;
+  border-radius: 50%;
+  text-align: center;
+  display: flex; /* Use flexbox */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  cursor: pointer;
+  z-index: 1001; /* Ensure it's above other content */
+}
+
+.form-popup-content{
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  max-width: 70%;
+  max-height: 60%;
+  overflow-y: auto;
+  position: relative; /* Keep this as relative */
 }
