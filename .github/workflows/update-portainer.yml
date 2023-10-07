@@ -1,0 +1,23 @@
+name: Update Portainer Container
+
+on:
+  workflow_run:
+    workflows: ["Docker Image CI"]
+    types:
+      - completed
+
+jobs:
+  update-container:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Send POST request to Portainer webhook
+        run: |
+          # Replace the URL with your Portainer webhook URL
+          PORTAINER_WEBHOOK_URL="https://162.19.224.10:9443/api/webhooks/22fbc68d-aa91-45ba-ab29-288e395c9a32"
+          
+          # Send the POST request to trigger the update
+          curl -X POST -d '{}' "$PORTAINER_WEBHOOK_URL"
