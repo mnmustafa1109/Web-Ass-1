@@ -71,7 +71,7 @@ $(document).ready(function () {
     // Clear the job listings container and display the filtered jobs
     jobListingsContainer.empty();
     filteredJobs.forEach(job => {
-      const jobCardHTML = createJobCard(job);
+      const jobCardHTML = createJobCard(job, jobData.indexOf(job));
       jobListingsContainer.append(jobCardHTML);
     });
   }
@@ -128,9 +128,6 @@ $(document).ready(function () {
     </div>
   `;
   }
-
-
-  // Add this code inside your $(document).ready(function () { ... }) block
 
   // Function to open the job popup
   function openJobPopup(job) {
@@ -193,26 +190,26 @@ $(document).ready(function () {
 
   });
 
-
   function deleteJob(event, jobId) {
-    event.stopPropagation(); // Prevent the click event from propagating to the job card
+    event.stopPropagation();
 
-    // Remove the job card from the UI
+    // Find the job card with the matching data-job-id attribute and remove it
     const jobCard = $(`.job-card[data-job-id="${jobId}"]`);
     jobCard.remove();
+    console.log(jobId);
 
     // Remove the job from the jobData array
-    jobData.splice(jobId, 1);
+    const indexToDelete = jobData.findIndex(job => jobData.indexOf(job) === jobId);
+    if (indexToDelete !== -1) {
+      jobData.splice(indexToDelete, 1);
+    }
   }
 
 
-  // Attach click event to delete buttons
+
   jobListingsContainer.on('click', '.delete-button', function (event) {
-    const jobId = $(this).data('job-id'); // Get the job ID from the data attribute
-    deleteJob(event, jobId); // Pass the event to the deleteJob function
+    const jobId = $(this).closest('.job-card').data('job-id'); // Get the job ID from data attribute
+    deleteJob(event, jobId); // Pass the event to the deleteJob function with the job's ID
   });
-
-
-
 
 });
