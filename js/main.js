@@ -184,7 +184,7 @@ $(document).ready(function () {
   }
 
   // Attach click event to job card company names to open the popup
-  jobListingsContainer.on('click', '.job-card .job-details', function (event) {
+  jobListingsContainer.on('click', '.job-card .job-details', function () {
     const jobId = $(this).closest('.job-card').data('job-id'); // Get the job ID from the closest job card
     const selectedJob = jobData[jobId]; // Find the job using the job ID
     if (selectedJob) {
