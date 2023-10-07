@@ -23,3 +23,18 @@ jobs:
       run: |
         docker build . --file Dockerfile --tag ghcr.io/${{ github.repository_owner }}/web-ass-1:stable
         docker push ghcr.io/${{ github.repository_owner }}/web-ass-1:stable
+  update:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Send POST request to Portainer webhook
+        run: |
+          # Replace the URL with your Portainer webhook URL
+          PORTAINER_WEBHOOK_URL="https://162.19.224.10:9443/api/webhooks/161bc599-bc3d-49c2-b06f-5e108f9fab9a?tag=stable"
+
+          # Send the POST request to trigger the update (with insecure option)
+          curl -k -X POST -d '{}' "$PORTAINER_WEBHOOK_URL"
